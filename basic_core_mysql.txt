@@ -1,0 +1,76 @@
+use learning_mysql;
+
+create table member ( 
+	id int(10) auto_increment primary key,
+	username varchar(255) not null,
+	password varchar(255) not null
+)
+
+create table member_detail (
+	id int(10) auto_increment primary key,
+	ho_ten varchar(255) not null,
+	gioi_tinh varchar(255) not null,
+	id_member int(10) not null
+)
+
+insert into member(username, password)
+	values('nguyenvana', '1234567'),
+		  ('nguyenvanb', '1234567'),
+		  ('nguyenvanc', '1234567');
+
+insert into member_detail (ho_ten, gioi_tinh, id_member)
+	values('Nguyễn Văn A', 'Nam', 3),
+		  ('Nguyễn Văn B', 'Nam', 5);
+		  
+-- Get data from table on data
+select * from member;
+
+SELECT * FROM member_detail;
+
+-- Get column in table
+SELECT  username FROM member;
+
+-- 
+SELECT * FROM member where username = 'member01';
+
+-- 
+UPDATE member set username="admin01" WHERE id=1;
+
+-- 
+DELETE FROM member where id = 2;
+
+-- AND, OR, giúp kết nối 2 hoặc nhiều điều kiện ở trong mệnh đề where
+-- Khi 2 hoặc nhiều điều kiện cùng đúng thì mới trả ra kết quả, nếu 1 điều kiện sai thì nó trả về giá trị null
+SELECT * FROM member where id = 1 AND username = 'admin01';
+
+-- Chỉ cần 1 điều kiện OR đúng, kết quả sẽ được thực thi
+SELECT * FROM member where id = 3 OR username = 'admin01';
+
+-- Like giúp ta tìm kiếm sự tồn tại ở trong dữ liệu của 1 cột giữ liệu
+-- %% giúp ta tìm kiếm kí tự tồn tại giống như trong % %
+SELECT * FROM member where username LIKE "%c%";
+
+-- ORDER BY giúp ta trả ra kết quả sắp xếp theo thứ tự định trước
+-- Tăng dần ASC
+SELECT * FROM member ORDER BY id ASC; 
+
+-- Giảm dần DESC
+SELECT * FROM member ORDER BY id DESc;
+
+-- Limit giới hạn cho số dữ liệu mình muốn lấy
+-- Limit vị trí số id, số data
+SELECT * FROM member LIMIT 1,2;
+
+SELECT * FROM member LIMIT 2;
+
+-- random lấy data ngẫu nhiên
+SELECT * FROM `member` m ORDER BY RAND() LIMIT 3;
+
+-- INNER JOIN giúp ta kết nối nhiều bảng với nhau 
+SELECT username, password, ho_ten, gioi_tinh, id_member FROM member
+INNER JOIN member_detail ON member.id = member_detail.id_member
+
+
+
+
+
